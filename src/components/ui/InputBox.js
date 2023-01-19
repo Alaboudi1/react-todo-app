@@ -1,19 +1,31 @@
 import React from 'react';
 import enhance from '../hoc/wrapInputBox';
 
-function InputBox(props) {
-    const { value, handleChange, handleKeyUp } = props;
+const InputBox = (props) =>{
+    const {addNew} = props;
+    const [inputs, updateInput] = React.useState('');
+
+    const handleInputChanges = (e) => {
+        updateInput(e.target.value);
+      };
+
+    const submit =(e) => {
+      addNew(inputs);
+      e.preventDefault();
+    }
 
     return (
-        <input autoFocus
+        <form onSubmit={submit}>
+        <input 
             type="text"
-            className="form-control add-todo"
-            value={value}
-            onKeyUp={handleKeyUp}
-            onChange={handleChange}
-            placeholder="Add New"
+            className="form-control"
+            placeholder="Note"
+            onChange={handleInputChanges}
         />
+              <input className="buttonAdd" type="submit" value="Add" />
+
+        </form>
     );
 }
 
-export default enhance(InputBox);
+export default InputBox;

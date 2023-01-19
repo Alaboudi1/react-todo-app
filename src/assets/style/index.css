@@ -31,6 +31,16 @@ body {
 
 .form-control {
     border-radius: 0;
+    width: 90%;
+    display: inline;
+}
+.buttonAdd{
+    border-radius: 1px;
+    width: 8%;
+    height:35px;
+    margin: 0px;
+    display: inline;
+
 }
 
 li.ui-state-default {
