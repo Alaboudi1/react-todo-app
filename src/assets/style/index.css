@@ -34,10 +34,11 @@ body {
     width: 90%;
     display: inline;
 }
-.buttonAdd{
+
+.buttonAdd {
     border-radius: 1px;
     width: 8%;
-    height:35px;
+    height: 35px;
     margin: 0px;
     display: inline;
 
@@ -87,7 +88,8 @@ footer {
     border-radius: 3px;
 }
 
-.filters li a.selected, .filters li a:hover {
+.filters li a.selected,
+.filters li a:hover {
     border-color: rgba(175, 47, 47, 0.1);
 }
 
@@ -113,7 +115,8 @@ footer .buttons {
     transition: 0.3s all;
 }
 
-.buttons .button:hover, .buttons .button.selected {
+.buttons .button:hover,
+.buttons .button.selected {
     opacity: 1;
     border-color: #ddd;
 }
@@ -133,4 +136,10 @@ footer .buttons {
     background: #f2f2f2;
     border: 1px solid rgba(229, 229, 229, 0.5);
     color: #888;
+}
+
+.animattion {
+    translate: 15px;
+    transition: 0.3s all;
+
 }
