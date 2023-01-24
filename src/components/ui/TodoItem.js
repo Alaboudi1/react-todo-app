@@ -10,7 +10,7 @@ export default function TodoItem(props) {
 
     const handleRemove = (e) => {
         e.preventDefault();
-        changeStatus(parseInt(e.target.value), true);
+        changeStatus(e.currentTarget.value, true);
     };
 
     return (
