@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { FILTER_ALL } from "../../services/filter";
 import { MODE_CREATE, MODE_NONE } from "../../services/mode";
 import { objectWithOnly, wrapChildrenWith } from "../../util/common";
@@ -9,64 +9,59 @@ import {
     removeItems,
 } from "../../services/todo";
 
-class StateProvider extends Component {
-    constructor() {
-        super();
-        this.state = {
-            query: "",
-            mode: MODE_CREATE,
-            filter: FILTER_ALL,
-            list: getAll(),
-        };
-    }
+function StateProvider(props) {
+    const [query, setQuery] = useState("");
+    const [mode, setMode] = useState(MODE_CREATE);
+    const [filter, setFilter] = useState(FILTER_ALL);
+    const [list, setList] = useState(getAll());
+    const data = { query, mode, filter, list };
+    const actions = {
+        addNew,
+        changeFilter,
+        changeStatus,
+        changeMode,
+        setSearchQuery,
+        removeItem,
+    };
 
-    render() {
-        let children = wrapChildrenWith(this.props.children, {
-            data: this.state,
-            actions: objectWithOnly(this, [
-                "addNew",
-                "changeFilter",
-                "changeStatus",
-                "changeMode",
-                "setSearchQuery",
-                "removeItem",
-            ]),
-        });
-
-        return <div>{children}</div>;
-    }
-
-    addNew(text) {
-        let updatedList = addToList(this.state.list, {
+    function addNew(text) {
+        let updatedList = addToList(list, {
             text,
             completed: false,
         });
 
-        this.setState({ list: updatedList });
+        setList(updatedList);
     }
 
-    changeFilter(filter) {
-        this.setState({ filter });
+    function changeFilter(filter) {
+        setFilter(filter);
     }
 
-    changeStatus(itemId, completed) {
-        const updatedList = updateStatus(this.state.list, itemId, completed);
+    function changeStatus(itemId, completed) {
+        const updatedList = updateStatus(list, itemId, completed);
 
-        this.setState({ list: updatedList });
+        setList(updatedList);
     }
 
-    changeMode(mode = MODE_NONE) {
-        this.setState({ mode });
+    function changeMode(mode = MODE_NONE) {
+        setMode(mode);
     }
 
-    setSearchQuery(text) {
-        this.setState({ query: text || "" });
+    function setSearchQuery(text) {
+        setQuery(text || "");
     }
-    removeItem(itemId) {
-        const updatedList = removeItems(this.state.list, itemId);
+    function removeItem(itemId) {
+        const updatedList = removeItems(list, itemId);
 
-        this.setState({ list: updatedList });
+        setList(updatedList);
     }
+
+    let children = wrapChildrenWith(props.children, {
+        data,
+        actions,
+    });
+
+    return <div>{children}</div>;
 }
 
 export default StateProvider;
